@@ -56,6 +56,7 @@ def create_app():
 
     app.config.from_object(Config)
 
+    git push
     # --------------------------------------------------------
     # Database
     # --------------------------------------------------------
@@ -256,7 +257,7 @@ def create_app():
 
 
     return app
-
+    app = create_app()
 
 # ============================================================
 # RUN APPLICATION
