@@ -1,2 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
 .env
+
+# macOS
+.DS_Store
+
+# Node
 frontend/node_modules/
+
+# Logs
+logs/
+*.log
+
+# Uploads (optional)
+uploads/
+
+# VS Code
+.vscode/
+
+# Python cache
+.pytest_cache/
