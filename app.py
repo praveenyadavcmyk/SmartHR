@@ -254,17 +254,28 @@ def create_app():
             "message": "Internal server error.",
         }), 500
 
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return jsonify({
+            "success": False,
+            "message": "Internal server error.",
+        }), 500
 
     return app
-    app = create_app()
+
+
+# ============================================================
+# CREATE APP FOR GUNICORN
+# ============================================================
+
+app = create_app()
+
 
 # ============================================================
 # RUN APPLICATION
 # ============================================================
 
 if __name__ == "__main__":
-
-    app = create_app()
 
     print("\n" + "=" * 70)
     print("SMART EMPLOYEE MANAGEMENT SYSTEM")
@@ -285,9 +296,7 @@ if __name__ == "__main__":
             )
         )
 
-        print(
-            f"{methods:<15} {rule}"
-        )
+        print(f"{methods:<15} {rule}")
 
     print("\n" + "=" * 70)
     print("Backend running on http://127.0.0.1:5000")
@@ -298,4 +307,3 @@ if __name__ == "__main__":
         port=5000,
         debug=True
     )
-    
