@@ -48,20 +48,22 @@ class Config:
     # -----------------------------
     # MySQL Database Settings
     # -----------------------------
-    DB_USER = os.getenv("DB_USER", "root")
-    DB_PASSWORD = os.getenv("DB_PASSWORD", "")
-    DB_HOST = os.getenv("DB_HOST", "localhost")
-    DB_PORT = os.getenv("DB_PORT", "3306")
-    DB_NAME = os.getenv("DB_NAME", "smart_employee_db")
-
-    # SQLAlchemy needs a single "connection string" (URI) that tells it
-    # how to connect to the database. We build it here from the individual
-    # pieces above using the PyMySQL driver.
-    SQLALCHEMY_DATABASE_URI = (
-        
-        f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    )
     
+    DATABASE_URL = os.getenv("DATABASE_URL")
+
+    if DATABASE_URL:
+     DATABASE_URL = DATABASE_URL.replace(
+        "postgres://",
+        "postgresql://",
+        1
+    )
+
+    SQLALCHEMY_DATABASE_URI = (
+      DATABASE_URL
+    or
+    f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+)
+
 
     # Disables a SQLAlchemy feature that tracks object changes for signals.
     # It uses extra memory and is not needed for most apps, so we turn it off.
