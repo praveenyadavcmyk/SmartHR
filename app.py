@@ -73,31 +73,16 @@ def create_app():
     # CORS
     # React frontend runs on port 3000
     # --------------------------------------------------------
+    
     CORS(
     app,
-    resources={
-        r"/api/*": {
-            "origins": [
-                "http://localhost:3000",
-                "http://127.0.0.1:3000",
-                os.getenv("FRONTEND_URL", "")
-            ],
-            "allow_headers": [
-                "Content-Type",
-                "Authorization",
-            ],
-            "methods": [
-                "GET",
-                "POST",
-                "PUT",
-                "PATCH",
-                "DELETE",
-                "OPTIONS",
-            ],
-        }
-    },
+    resources={r"/api/*": {"origins": [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        os.getenv("FRONTEND_URL")
+    ]}},
+    supports_credentials=True
 )
-    
 
 
     # ========================================================

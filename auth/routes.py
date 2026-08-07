@@ -34,16 +34,20 @@ def admin_register():
         full_name = data["full_name"],
         role      = data.get("role", "admin")
     )
-    try: 
-        db.session.add(admin)
-        db.session.commit()
-        
+    try:
+      db.session.add(admin)
+      db.session.commit()
     except Exception:
-       db.session.rollback()
-    return jsonify({"success": False, "message": "Database error. Please try again."}), 500
+      db.session.rollback()
+    return jsonify({
+        "success": False,
+        "message": "Database error. Please try again."
+    }), 500
 
-    return jsonify({"success": True, "message": "Admin registered successfully."}), 201
-
+    return jsonify({
+    "success": True,
+    "message": "Admin registered successfully."
+}), 201
 
 # ── Admin Login ───────────────────────────────────────────────
 @auth_bp.route("/admin/login", methods=["POST"])
